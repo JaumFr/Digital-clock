@@ -1,49 +1,33 @@
-const horas = document.getElementById('horas');
-const minutos = document.getElementById('minutos');
-const segundos = document.getElementById('segundos');
-//relogio
+const elementHour = document.getElementById('hour');
+const elementMinutes = document.getElementById('minutes');
+const elementSeconds = document.getElementById('seconds');
+const elementDate = document.getElementById('date');
+
+const options = { dateStyle: 'full' };
+
 const relogio = setInterval(function time() {
-    let dateToday = new Date();
-    let hr = dateToday.getHours();
-    let min = dateToday.getMinutes();
-    let s = dateToday.getSeconds();
+    const date = new Date();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
 
-    if (hr < 10) hr = '0' + hr;
-
-    if (min < 10) min = '0' + min;
-
-    if (s < 10) s = '0' + s;
-
-    horas.textContent = hr;
-    minutos.textContent = min;
-    segundos.textContent = s;
-
+    elementHour.textContent = addZero( hour );
+    elementMinutes.textContent = addZero( minutes );
+    elementSeconds.textContent = addZero( seconds );
 })
-//dia
-let dia = document.getElementById('dia');
 
-let date = new Date();
-let day = date.getDate();
+const calendar = setInterval(function date(){
+    const date = new Date();
 
-dia.innerHTML = day;
-//-------------------------------------//
+    let monthDate = new Intl.DateTimeFormat( 'pt-BR', options ).format(date);
+    
+    elementDate.textContent = firstLetterUpperCase(monthDate);
+})
 
-//mes
-let mes = document.getElementById('mes');
+function firstLetterUpperCase(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
-mezx = ['Jan','Fev','Mar','Abr','Maio','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-
-let month = new Date();
-let mon = mezx [date.getMonth()] ;
-
-mes.innerHTML = mon;
-//-------------------------------------//
-
-//ano
-let ano = document.getElementById('ano');
-
-let year = new Date();
-let yea = date.getFullYear();
-
-ano.innerHTML = yea;
-//-------------------------------------//
+function addZero( number ) {
+    return number < 10 ? '0' + number : number;
+}
