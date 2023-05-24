@@ -25,7 +25,9 @@ const calendar = setInterval(function date(){
 })
 
 function firstLetterUpperCase(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    string = string.replace(string[0], (letter) => letter.toUpperCase())
+    string = string.replace(string[20], (letter) => letter.toUpperCase())
+    return string; 
 }
 
 function addZero( number ) {
